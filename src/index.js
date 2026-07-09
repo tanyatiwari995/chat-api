@@ -45,7 +45,6 @@ import mergedResolvers from "./resolvers/index.js";
 
 // Main async start function
 async function startServer() {
-  // यहाँ हमने आपके क्रेडेंशियल्स को सीधे कोड में जोड़ दिया है
   const PORT = process.env.PORT || 3010;
   const MONGO_URI = "mongodb+srv://getrjtanyatiwari:tanyatiwari04042004@cluster0.k7pjt.mongodb.net/chat-api?retryWrites=true&w=majority";
   const SESSION_SECRET = "mySuperSecretSessionKey123";
@@ -104,6 +103,14 @@ async function startServer() {
   });
   socketHandler(io);
 
+  // 1. Base/Home Route (यह नया रूट आपकी एरर को ठीक करेगा)
+  app.get("/", (req, res) => {
+    res.json({ 
+      success: true, 
+      message: "Welcome to Chat API! The server is running perfectly." 
+    });
+  });
+
   // Secure test route
   app.get("/secure", authMiddleware, (req, res) => {
     res.json({ message: "You are authenticated!", user: req.user });
@@ -139,7 +146,7 @@ async function startServer() {
     res.status(err.status || 500).json({ success: false, error: err.message });
   });
 
-  // 404
+  // 404 handler
   app.use((req, res) => {
     console.log(`404 Not Found: ${req.method} ${req.originalUrl}`);
     res
