@@ -37,7 +37,6 @@ import transactionRoutes from "./routes/transaction.routes.js";
 import { notificationRoutes } from "./routes/notification.js";
 
 // Socket handler
-// import socketHandler from "./socket.js";
 import socketHandler from "./socket/socket.js";
 
 // GraphQL typeDefs & resolvers
@@ -46,9 +45,10 @@ import mergedResolvers from "./resolvers/index.js";
 
 // Main async start function
 async function startServer() {
+  // यहाँ हमने आपके क्रेडेंशियल्स को सीधे कोड में जोड़ दिया है
   const PORT = process.env.PORT || 3010;
-  const MONGO_URI = process.env.MONGO_URI;
-  const SESSION_SECRET = process.env.SESSION_SECRET;
+  const MONGO_URI = "mongodb+srv://getrjtanyatiwari:tanyatiwari04042004@cluster0.k7pjt.mongodb.net/chat-api?retryWrites=true&w=majority";
+  const SESSION_SECRET = "mySuperSecretSessionKey123";
 
   // Connect to MongoDB
   const connectionState = await connectToMongoDB(MONGO_URI);
